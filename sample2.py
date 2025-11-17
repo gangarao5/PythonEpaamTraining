@@ -1,0 +1,1 @@
+print("File from local python epaam training")
