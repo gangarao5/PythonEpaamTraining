@@ -1,1 +1,2 @@
-print("File from local python epaam training changed to create local branch")
+print("File from locgit branch -d <branch_name>al python epaam training changed to create local branch 2")
+print("File from locgit branch -d <branch_name>al python epaam training changed to create local branch 2")
