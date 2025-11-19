@@ -44,7 +44,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Running Python script..."
-                python your_script.py
+                python sample2.py
                 '''
             }
         }
