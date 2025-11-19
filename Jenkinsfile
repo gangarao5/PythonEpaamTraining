@@ -1,25 +1,82 @@
-pipeline{
+// pipeline{
+//     agent any
+//
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 git branch: 'R_main', url: 'https://github.com/gangarao5/PythonEpaamTraining.git'
+//             }
+//         }
+//         stage('Install Dependencies')
+//         {
+//             steps {
+//                 bat 'pip install -r requirements.txt'
+//             }
+//         }
+//         stage('Run Tests') {
+//             steps {
+//                 bat 'pytest'
+//             }
+//         }
+//     }
+// }
+//
+//
+pipeline {
     agent any
+
+    tools {
+        git 'DefaultGit'        // Name you configured in Global Tool Configuration
+        python 'Python3'        // Name you configured for Python in Global Tool Configuration
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'R_main', url: 'https://github.com/gangarao5/PythonEpaamTraining.git'
+                echo '📥 Checking out source code...'
+                checkout scm
             }
         }
-        stage('Install Dependencies')
-        {
+
+        stage('Setup Python') {
             steps {
+                echo '🐍 Setting up Python environment...'
+                bat 'python --version'
+                bat 'pip install --upgrade pip'
                 bat 'pip install -r requirements.txt'
             }
         }
+
         stage('Run Tests') {
             steps {
-                bat 'pytest'
+                echo '🧪 Running tests with pytest...'
+                bat 'pytest --html=report.html --self-contained-html'
+            }
+        }
+
+        stage('Publish Reports') {
+            steps {
+                echo '📊 Publishing HTML report...'
+                publishHTML(target: [
+                    reportDir: '.',
+                    reportFiles: 'report.html',
+                    reportName: 'Pytest Report'
+                ])
             }
         }
     }
+
+    post {
+        success {
+            echo '✅ Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Pipeline failed. Check logs for details.'
+        }
+    }
 }
+
+
 
 
 
