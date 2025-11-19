@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PYTHON = 'python' // Adjust if you use python3
+        PYTHON = 'python'
     }
 
     stages {
@@ -26,7 +26,6 @@ pipeline {
         stage('Run Tests') {
             steps {
                 echo 'Running Pytest with HTML report...'
-                // Generate JUnit XML and HTML report
                 bat "pytest --maxfail=50 --disable-warnings --junitxml=reports/results.xml --html=reports/results.html --self-contained-html"
             }
         }
@@ -34,9 +33,7 @@ pipeline {
         stage('Publish Reports') {
             steps {
                 echo 'Publishing test results...'
-                // Publish JUnit results
                 junit 'reports/results.xml'
-                // Archive HTML report
                 archiveArtifacts artifacts: 'reports/results.html', fingerprint: true
             }
         }
@@ -57,3 +54,4 @@ pipeline {
             echo '❌ Pipeline failed. Check logs for details.'
         }
     }
+} // ✅ Make sure this closing brace exists
