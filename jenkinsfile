@@ -104,7 +104,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Running pytest..."
-                pytest sample_pytest.py --maxfail=1 --disable-warnings -q
+                pytest sample_pytest.py
                 '''
             }
         }
