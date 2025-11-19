@@ -25,10 +25,7 @@
 pipeline {
     agent any
 
-    tools {
-        git 'DefaultGit'        // Name you configured in Global Tool Configuration
 
-    }
 
     stages {
         stage('Checkout') {
