@@ -44,7 +44,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Running Python script..."
-                python your_script.py
+                pytest C:\\Users\\VeeraGangarao\PycharmProjects\\PythonEpaamTraining\\sample_pytest.py
                 '''
             }
         }
