@@ -4,7 +4,7 @@ pipeline{
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/gangarao5/PythonEpaamTraining.git'
+                git branch: 'R_main', url: 'https://github.com/gangarao5/PythonEpaamTraining.git'
             }
         }
         stage('Install Dependencies')
