@@ -91,7 +91,7 @@ pipeline {
 
         stage('Setup Python') {
             steps {
-                sh '''
+                bat '''
                 python3 --version
                 python3 -m pip install --upgrade pip
                 if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -102,7 +102,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh '''
+                bat '''
                 echo "Running pytest..."
                 pytest sample_pytest.py
                 '''
