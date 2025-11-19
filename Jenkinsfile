@@ -27,7 +27,7 @@ pipeline {
 
     tools {
         git 'DefaultGit'        // Name you configured in Global Tool Configuration
-        python 'Python3'        // Name you configured for Python in Global Tool Configuration
+
     }
 
     stages {
@@ -40,7 +40,7 @@ pipeline {
 
         stage('Setup Python') {
             steps {
-                echo '🐍 Setting up Python environment...'
+                echo 'Setting up Python environment...'
                 bat 'python --version'
                 bat 'pip install --upgrade pip'
                 bat 'pip install -r requirements.txt'
@@ -49,7 +49,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo '🧪 Running tests with pytest...'
+                echo 'Running tests with pytest...'
                 bat 'pytest --html=report.html --self-contained-html'
             }
         }
