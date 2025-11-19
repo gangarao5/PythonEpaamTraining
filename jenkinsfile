@@ -1,15 +1,64 @@
+// pipeline {
+//     agent any
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 git branch: 'main', url: 'https://github.com/gangarao5/PythonEpaamTraining.git'
+//             }
+//         }
+//         stage('Build') {
+//             steps {
+//                 echo 'Building...'
+//             }
+//         }
+//     }
+// }
+
+
 pipeline {
     agent any
+
+    environment {
+        PYTHON_VERSION = "3.10"
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/gangarao5/PythonEpaamTraining.git'
+                // Pull code from Git repository
+                git branch: 'R_main', url: 'https://github.com/gangarao5/PythonEpaamTraining.git'
             }
         }
-        stage('Build') {
+
+        stage('Setup Python') {
             steps {
-                echo 'Building...'
+                sh '''
+                python3 --version
+                python3 -m pip install --upgrade pip
+                pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Run Script') {
+            steps {
+                sh '''
+                echo "Running Python script..."
+                python your_script.py
+                '''
+            }
+        }
+
+        stage('Post Actions') {
+            steps {
+                echo 'Pipeline completed successfully!'
             }
         }
     }
-}
+
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
+        }
+    }
